@@ -1,0 +1,27 @@
+{
+  "name": "jumper",
+  "version": "1.0.0",
+  "description": "Multi-repository maintenance tools",
+  "main": "src/main.js",
+  "scripts": {
+    "test": "standard && npm run test:unit && npm run test:integration",
+    "lint": "standard --fix",
+    "start": "node bin/cli -s hello -r ./repolist.txt",
+    "test:unit": "mocha ./tests/unit/*.test.js",
+    "test:integration": "mocha ./tests/integration/*.test.js"
+  },
+  "bin": {
+    "jumper": "./bin/cli.js"
+  },
+  "keywords": [],
+  "author": "Connected Web",
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^8.0.1",
+    "standard": "^14.3.4"
+  },
+  "dependencies": {
+    "yargs": "^15.3.1"
+  }
+}
