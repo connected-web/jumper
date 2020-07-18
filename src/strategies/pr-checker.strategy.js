@@ -2,6 +2,7 @@ const path = require('path')
 const { read, readJson, write } = require('../utils/asyncFs')
 
 function prCheckerStrategy (repo, startwd) {
+  const cwd = `${startwd}/repos/${repo}`
   let packageData, packageScripts, testCommand, prCheckYamlTemplate, prCheckYamlFile
 
   async function checkForPackageJSON ({ command, cwd, report }) {
@@ -55,6 +56,9 @@ function prCheckerStrategy (repo, startwd) {
 
   const repowd = `${startwd}/repos/${repo}`
   const steps = [
+    { command: 'npm -v', cwd: startwd },
+    { command: `git clone git@github.com:${repo}.git repos/${repo}`, cwd: startwd },
+    { command: 'pwd', cwd },
     { command: checkForPackageJSON, cwd: repowd, startwd },
     { command: checkForTestCommand, cwd: repowd, startwd },
     { command: loadPRCheckYAMLTemplate, cwd: repowd, startwd },
