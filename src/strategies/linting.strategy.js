@@ -1,10 +1,11 @@
 const path = require('path')
 const { readJson } = require('../utils/asyncFs')
+const slug = require('../utils/slug')
 
 function lintingStrategy (repo, startwd, reference) {
   const cwd = `${startwd}/repos/${repo}`
   const strategyUrl = 'https://github.com/connected-web/jumper/blob/master/src/strategies/linting.strategy.js'
-  const branchName = reference + '-jumper-linting'
+  const branchName = slug(reference) + '-jumper-linting'
   const commitMessage1 = `${reference} Removed and rebuilt the package-lock file with latest linting tools.\n${strategyUrl}`
   const commitMessage2 = `Lint all files using the preferred linting command.\n${strategyUrl}`
   const pullRequestTitle = `${reference}: Update linter and apply linting`

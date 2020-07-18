@@ -52,14 +52,6 @@ async function verifyArgsValidity (args) {
   }
 }
 
-function slug (word) {
-  return word.toLowerCase()
-    .replace(/[.']/g, '')
-    .replace(/[^a-z\d-]/g, ' ')
-    .trim()
-    .replace(/(\s)+/g, '-')
-}
-
 async function run () {
   report('Starting process')
 
@@ -68,7 +60,7 @@ async function run () {
   await verifyArgsValidity(args)
 
   const repoList = await getRepositoryList(args.repoList)
-  const reference = slug(args.reference)
+  const reference = args.reference
   report('Found', repoList.length, 'repos to execute the', args.strategy, 'strategy against for', reference)
   const strategy = strategies[args.strategy]
 
