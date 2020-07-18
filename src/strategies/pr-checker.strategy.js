@@ -1,8 +1,13 @@
 const path = require('path')
 const { read, readJson, write } = require('../utils/asyncFs')
 
-function prCheckerStrategy (repo, startwd) {
+function prCheckerStrategy (repo, startwd, reference) {
   const cwd = `${startwd}/repos/${repo}`
+  const branchName = reference + '-jumper-rebuild'
+  const jumperSrcUrl = 'https://github.com/connected-web/jumper'
+  const commitMessage = `Removed and rebuilt the package-lock file.\n${jumperSrcUrl}/blob/master/src/strategies/rebuild.strategy.js`
+  const pullRequestMessage = `This is an automated pull-request generated using the [JUMPER](${jumperSrcUrl}) [rebuild strategy](${jumperSrcUrl}/blob/master/src/strategies/rebuild.strategy.js).`
+
   let packageData, packageScripts, testCommand, prCheckYamlTemplate, prCheckYamlFile
 
   async function checkForPackageJSON ({ command, cwd, report }) {
@@ -64,7 +69,16 @@ function prCheckerStrategy (repo, startwd) {
     { command: loadPRCheckYAMLTemplate, cwd: repowd, startwd },
     { command: checkForPRCheckYAML, cwd: repowd, startwd },
     { command: 'mkdir -p .github/workflows', cwd: repowd, startwd },
-    { command: createPRCheckYAML, cwd: repowd, startwd }
+    { command: createPRCheckYAML, cwd: repowd, startwd },
+    { command: `git push --delete origin ${branchName}`, cwd, optionalSuccess: true },
+    { command: `git checkout -b ${branchName}`, cwd },
+    { command: 'git add .github/workflows/pr-check.yml', cwd },
+    { command: `git commit -m "${reference} ${commitMessage}"`, cwd },
+    { command: 'git status', cwd },
+    { command: `git push --set-upstream origin ${branchName}`, cwd },
+    { command: `hub pull-request -m "${reference}: npm package-lock rebuild\n\n${pullRequestMessage}"`, cwd },
+    { command: 'git status', cwd },
+    { command: 'hub pr show', cwd }
   ]
 
   return steps
