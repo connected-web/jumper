@@ -1,4 +1,5 @@
 const exec = require('../utils/asyncExec')
+const slug = require('../utils/slug')
 
 async function auditAndEarlyExit ({ cwd, report }) {
   let auditResult
@@ -18,7 +19,7 @@ async function auditAndEarlyExit ({ cwd, report }) {
 
 function auditStrategy (repo, startwd, reference) {
   const cwd = `${startwd}/repos/${repo}`
-  const branchName = reference + '-jumper-audit'
+  const branchName = slug(reference) + '-jumper-audit'
   const commitMessage = 'Applied npm audit fix --force on project\nSee: https://github.com/connected-web/jumper/blob/master/src/strategies/audit.strategy.js'
   const pullRequestMessage = 'This is an automated pull-request generated using the [JUMPER](https://github.com/connected-web/jumper) [audit strategy](https://github.com/connected-web/jumper/blob/master/src/strategies/audit.strategy.js).'
 

@@ -22,6 +22,16 @@ after(() => {
   console.log = log
 })
 
+function find (needle, haystack) {
+  let found = haystack
+  haystack.forEach(haybail => {
+    if (haybail.includes(needle)) {
+      found = haybail
+    }
+  })
+  return found
+}
+
 describe('Jumper Integration', function () {
   const exampleRepoList = ['connected-web/example', 'connected-web/other-repo', 'connected-web/final-example']
   before(async function () {
@@ -43,102 +53,13 @@ describe('Jumper Integration', function () {
     expect(files).to.have.deep.members(expectedFiles)
   })
 
-  it('reports the correct log lines', async function () {
-    const actual = logs
-    const expected = [
-      [
-        '[JUMPER]',
-        'Cleaning and creating repos/ folder in',
-        '/Users/beechj01/Local/jumper'
-      ],
-      [
-        '[JUMPER]',
-        'Cleaning and creating logs/ folder in',
-        '/Users/beechj01/Local/jumper'
-      ],
-      [
-        '[JUMPER]',
-        'Running against:'
-      ],
-      [
-        '  [0] connected-web/example\n  [1] connected-web/other-repo\n  [2] connected-web/final-example'
-      ],
-      [
-        '[0]',
-        'Starting some work:',
-        'connected-web/example'
-      ],
-      [
-        '[connected-web/example]',
-        'echo "Hello connected-web/example"',
-        'from',
-        '/Users/beechj01/Local/jumper/repos/connected-web/example'
-      ],
-      [
-        '[1]',
-        'Starting some work:',
-        'connected-web/other-repo'
-      ],
-      [
-        '[connected-web/other-repo]',
-        'echo "Hello connected-web/other-repo"',
-        'from',
-        '/Users/beechj01/Local/jumper/repos/connected-web/other-repo'
-      ],
-      [
-        '[2]',
-        'Starting some work:',
-        'connected-web/final-example'
-      ],
-      [
-        '[connected-web/final-example]',
-        'echo "Hello connected-web/final-example"',
-        'from',
-        '/Users/beechj01/Local/jumper/repos/connected-web/final-example'
-      ],
-      [
-        '[connected-web/example]',
-        'Caught exception:',
-        'Error: spawn /bin/sh ENOENT'
-      ],
-      [
-        '[connected-web/example]',
-        'Writing log file to ./logs/connected-web-example.log'
-      ],
-      [
-        '[connected-web/other-repo]',
-        'Caught exception:',
-        'Error: spawn /bin/sh ENOENT'
-      ],
-      [
-        '[connected-web/other-repo]',
-        'Writing log file to ./logs/connected-web-other-repo.log'
-      ],
-      [
-        '[connected-web/final-example]',
-        'Caught exception:',
-        'Error: spawn /bin/sh ENOENT'
-      ],
-      [
-        '[connected-web/final-example]',
-        'Writing log file to ./logs/connected-web-final-example.log'
-      ],
-      [
-        '[0] connected-web/example',
-        'Error: spawn /bin/sh ENOENT',
-        'Completed OK'
-      ],
-      [
-        '[1] connected-web/other-repo',
-        'Error: spawn /bin/sh ENOENT',
-        'Completed OK'
-      ],
-      [
-        '[2] connected-web/final-example',
-        'Error: spawn /bin/sh ENOENT',
-        'Completed OK'
-      ]
-    ]
-    expect(actual).to.deep.equal(expected)
+  it('reports that its cleaning and creating the repos/ folder', async function () {
+    const actual = find('Cleaning and creating repos/ folder in', logs)
+    expect(actual).to.deep.equal(['[JUMPER]', 'Cleaning and creating repos/ folder in', process.cwd()])
+  })
+
+  it('reports that its cleaning and creating the logs/ folder', async function () {
+    const actual = find('Cleaning and creating logs/ folder in', logs)
+    expect(actual).to.deep.equal(['[JUMPER]', 'Cleaning and creating logs/ folder in', process.cwd()])
   })
 })
