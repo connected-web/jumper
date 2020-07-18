@@ -2,15 +2,13 @@ const path = require('path')
 const { read, readJson, write } = require('../utils/asyncFs')
 
 function prCheckerStrategy (repo, startwd) {
-
   let packageData, packageScripts, testCommand, prCheckYamlTemplate, prCheckYamlFile
 
   async function checkForPackageJSON ({ command, cwd, report }) {
     const packagePath = path.join(cwd, 'package.json')
     try {
       packageData = await readJson(packagePath)
-    }
-    catch (ex) {
+    } catch (ex) {
       throw new Error(`No package.json found for ${repo}: ${ex.message}`)
     }
   }
@@ -24,22 +22,20 @@ function prCheckerStrategy (repo, startwd) {
     }
   }
 
-  async function loadPRCheckYAMLTemplate({ command, cwd, report }) {
+  async function loadPRCheckYAMLTemplate ({ command, cwd, report }) {
     const templatePath = path.join(__dirname, '../templates/pr-check.yml')
     try {
       prCheckYamlTemplate = await read(templatePath, 'utf8')
-    }
-    catch (ex) {
+    } catch (ex) {
       throw new Error(`Unable to load PR Check YAML Template from ${templatePath}: ${ex.message}`)
     }
   }
-  
-  async function checkForPRCheckYAML({ command, cwd, report }) {
+
+  async function checkForPRCheckYAML ({ command, cwd, report }) {
     const filePath = path.join(cwd, './.github/workflows/pr-check.yml')
     try {
       prCheckYamlFile = await read(filePath, 'utf8')
-    }
-    catch (ex) {
+    } catch (ex) {
       report(`No pr-check.yml workflow found in project; checked: '${filePath}'`)
     }
 
@@ -47,13 +43,12 @@ function prCheckerStrategy (repo, startwd) {
       throw new Error('Existing pr-check.yml workflow found; strategy abandoned')
     }
   }
-  
-  async function createPRCheckYAML({ command, cwd, report }) {
+
+  async function createPRCheckYAML ({ command, cwd, report }) {
     const filePath = path.join(cwd, './.github/workflows/pr-check.yml')
     try {
       await write(filePath, prCheckYamlTemplate, 'utf8')
-    }
-    catch (ex) {
+    } catch (ex) {
       throw new Error(`Unable to write PR Check YAML Template to ${filePath}: ${ex.message}`)
     }
   }
