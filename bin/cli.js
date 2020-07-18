@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const yargs = require('yargs')
-const index = require('../src/jumper')
+const main = require('../')
 const strategies = require('../src/strategies')
 const { exists, read } = require('../src/utils/asyncFs')
 const report = (...messages) => console.log('[JUMPER CLI]', ...messages)
@@ -73,7 +73,7 @@ async function run () {
   const strategy = strategies[args.strategy]
 
   try {
-    await index.run({ strategy, repoList, cwd, reference })
+    await main.run({ strategy, repoList, cwd, reference })
   } catch (ex) {
     report('Unable to complete;', ex.message)
   }
