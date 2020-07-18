@@ -6,7 +6,7 @@ function prCheckerStrategy (repo, startwd, reference) {
   const cwd = `${startwd}/repos/${repo}`
   const branchName = slug(reference) + '-jumper-add-pr-check'
   const jumperSrcUrl = 'https://github.com/connected-web/jumper'
-  const commitMessage = `Removed and rebuilt the package-lock file.\n${jumperSrcUrl}/blob/master/src/strategies/pr-checker.strategy.js`
+  const commitMessage = `Created .github/workflows/pr-check.yml from template.\n${jumperSrcUrl}/blob/master/src/strategies/pr-checker.strategy.js`
   const pullRequestMessage = `This is an automated pull-request generated using the [JUMPER](${jumperSrcUrl}) [pr-checker strategy](${jumperSrcUrl}/blob/master/src/strategies/pr-checker.strategy.js).`
 
   let packageData, packageScripts, testCommand, prCheckYamlTemplate, prCheckYamlFile
@@ -77,7 +77,7 @@ function prCheckerStrategy (repo, startwd, reference) {
     { command: `git commit -m "${reference} ${commitMessage}"`, cwd },
     { command: 'git status', cwd },
     { command: `git push --set-upstream origin ${branchName}`, cwd },
-    { command: `hub pull-request -m "${reference}: npm package-lock rebuild\n\n${pullRequestMessage}"`, cwd },
+    { command: `hub pull-request -m "${reference}: Create PR Check Workflow from Template\n\n${pullRequestMessage}"`, cwd },
     { command: 'git status', cwd },
     { command: 'hub pr show', cwd }
   ]
