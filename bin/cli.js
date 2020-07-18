@@ -9,10 +9,10 @@ const report = (...messages) => console.log('[JUMPER CLI]', ...messages)
 function getArgs () {
   const defaultReposPath = 'repolist.txt'
   return yargs
-    .usage('Usage: -r <repolist.txt> -s <audit> -r <tvpx-200>')
+    .usage('Usage: -r <repolist.txt> -s <audit> -r <jumper>')
     .option('l', { alias: 'repoList', describe: 'The filename containing the list of github repos to run strategies against; in the format org/reponame, one per line.', type: 'string', default: defaultReposPath, demandOption: false })
     .option('s', { alias: 'strategy', describe: 'The string name of the strategy to run', type: 'string', demandOption: true })
-    .option('r', { alias: 'reference', describe: 'The reference related to this work', type: 'string', default: 'unreferenceed-work', demandOption: false })
+    .option('r', { alias: 'reference', describe: 'The reference related to this work', type: 'string', default: 'Automated Update', demandOption: false })
     .example('jumper -s hello', `Execute the hello strategy against all repos in ${defaultReposPath}`)
     .argv
 }
@@ -52,14 +52,6 @@ async function verifyArgsValidity (args) {
   }
 }
 
-function slug (word) {
-  return word.toLowerCase()
-    .replace(/[.']/g, '')
-    .replace(/[^a-z\d-]/g, ' ')
-    .trim()
-    .replace(/(\s)+/g, '-')
-}
-
 async function run () {
   report('Starting process')
 
@@ -68,7 +60,7 @@ async function run () {
   await verifyArgsValidity(args)
 
   const repoList = await getRepositoryList(args.repoList)
-  const reference = slug(args.reference)
+  const reference = args.reference
   report('Found', repoList.length, 'repos to execute the', args.strategy, 'strategy against for', reference)
   const strategy = strategies[args.strategy]
 

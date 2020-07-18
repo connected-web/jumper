@@ -1,5 +1,6 @@
 const path = require('path')
 const { readJson } = require('../utils/asyncFs')
+const slug = require('../utils/slug')
 
 /**
  * Uses npm uninstall ${a} ${b} ${b} to completely remove all depdencies, and then
@@ -10,7 +11,7 @@ const { readJson } = require('../utils/asyncFs')
 
 function rebuildStrategy (repo, startwd, reference) {
   const cwd = `${startwd}/repos/${repo}`
-  const branchName = reference + '-jumper-rebuild'
+  const branchName = slug(reference) + '-jumper-rebuild'
   const commitMessage = 'Removed and rebuilt the package-lock file.\nhttps://github.com/connected-web/jumper/blob/master/src/strategies/rebuild.strategy.js'
   const pullRequestMessage = 'This is an automated pull-request generated using the [JUMPER](https://github.com/connected-web/jumper) [rebuild strategy](https://github.com/connected-web/jumper/blob/master/src/strategies/rebuild.strategy.js).'
 

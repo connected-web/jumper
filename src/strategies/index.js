@@ -3,6 +3,7 @@ const strategies = {
   checkout: require('./checkout.strategy'),
   hello: require('./hello.strategy'),
   linting: require('./linting.strategy'),
+  'pr-checker': require('./pr-checker.strategy'),
   rebuild: require('./rebuild.strategy')
 }
 
