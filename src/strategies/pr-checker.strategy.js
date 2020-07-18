@@ -6,8 +6,8 @@ function prCheckerStrategy (repo, startwd, reference) {
   const cwd = `${startwd}/repos/${repo}`
   const branchName = slug(reference) + '-jumper-add-pr-check'
   const jumperSrcUrl = 'https://github.com/connected-web/jumper'
-  const commitMessage = `Removed and rebuilt the package-lock file.\n${jumperSrcUrl}/blob/master/src/strategies/rebuild.strategy.js`
-  const pullRequestMessage = `This is an automated pull-request generated using the [JUMPER](${jumperSrcUrl}) [rebuild strategy](${jumperSrcUrl}/blob/master/src/strategies/rebuild.strategy.js).`
+  const commitMessage = `Removed and rebuilt the package-lock file.\n${jumperSrcUrl}/blob/master/src/strategies/pr-checker.strategy.js`
+  const pullRequestMessage = `This is an automated pull-request generated using the [JUMPER](${jumperSrcUrl}) [pr-checker strategy](${jumperSrcUrl}/blob/master/src/strategies/pr-checker.strategy.js).`
 
   let packageData, packageScripts, testCommand, prCheckYamlTemplate, prCheckYamlFile
 
