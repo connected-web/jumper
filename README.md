@@ -113,6 +113,14 @@ Example: `npx github:connected-web/jumper --repoList repolist.txt --strategy lin
 
 See the [linting strategy source code](./src/strategies/linting.strategy.js) to see how this works.
 
+### PR Checker
+
+Looks for a `test` command in `package.json` and then a `.github/workflows/pr-check.yml` file. If the `test` command is found, but not the `pr-check.yml` file; then this strategy will create the `pr-check.yml` file based on a local template; and a raise a PR on each repo checked.
+
+Example: `npx github:connected-web/jumper --repoList repolist.txt --strategy pr-checker`
+
+See the [rebuild strategy source code](./src/strategies/rebuild.strategy.js) for the full list of commands.
+
 ### Rebuild
 
 Uses `npm uninstall ${a} ${b} ${b}` to remove all dependencies, and then reinstalls the latest available versions using `npm install ${a} ${b} ${c}`. Processes dependencies and devDependencies separately. After updating package.json in each repo it will raise a PR.
