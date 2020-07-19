@@ -46,7 +46,7 @@ function prCheckerStrategy (repo, startwd, reference) {
       report(`No pr-check.yml workflow found in project; checked: '${filePath}'`)
     }
 
-    if (prCheckYamlFile && prCheckYamlFile.length > prCheckYamlTemplate.length / 2) {
+    if (prCheckYamlFile && prCheckYamlFile.trim() === prCheckYamlTemplate.trim()) {
       throw new Error('Existing pr-check.yml workflow found; strategy abandoned')
     }
   }
