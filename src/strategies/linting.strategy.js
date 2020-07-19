@@ -9,7 +9,7 @@ function lintingStrategy (repo, startwd, reference) {
   const commitMessage1 = `${reference} Removed and rebuilt the package-lock file with latest linting tools.\n${strategyUrl}`
   const commitMessage2 = `Lint all files using the preferred linting command.\n${strategyUrl}`
   const pullRequestTitle = `${reference}: Update linter and apply linting`
-  const pullRequestMessage = `${reference} This is an automated pull-request generated using the [JUMPER rebuild strategy](${strategyUrl}).`
+  const pullRequestMessage = `${reference} This is an automated pull-request generated using the [JUMPER linting strategy](${strategyUrl}).`
 
   let packageData = {}
   let dependencies = {}
