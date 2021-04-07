@@ -2,6 +2,8 @@
 
 Jumper is a multi-repository maintenance tool.
 
+![A knitted jumper](./jumper.jpg)
+
 ## Prerequisites
 - [`node`](https://nodejs.org/en/) > `12`
 - [`npm`](https://www.npmjs.com/) > `6`
