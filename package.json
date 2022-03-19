@@ -4,6 +4,7 @@
   "description": "Multi-repository maintenance tools",
   "main": "src/main.js",
   "scripts": {
+    "build": "echo No build required",
     "test": "standard && npm run test:unit && npm run test:integration",
     "lint": "standard --fix",
     "start": "node bin/cli -s hello -r ./repolist.txt",
