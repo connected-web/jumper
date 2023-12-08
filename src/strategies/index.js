@@ -1,4 +1,5 @@
 const strategies = {
+  aoc: require('./aoc.strategy'),
   audit: require('./audit.strategy'),
   checkout: require('./checkout.strategy'),
   hello: require('./hello.strategy'),
