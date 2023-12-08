@@ -89,6 +89,8 @@ Wipe out all `input.txt` files from the repo history using [`git filter-repo`](h
 
 Example: `npx github:connected-web/jumper --repoList repolist-aoc.txt --strategy aoc`
 
+See: [AoC strategy source code](./src/strategies/aoc.strategy.js) for the full list of executed commands.
+
 ### Audit
 
 Uses `npm audit fix --force` to update each repos and then create a PR.
