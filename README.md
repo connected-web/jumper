@@ -83,6 +83,12 @@ connected-web/quick-score
 
 ## Available Strategies
 
+### AoC
+
+Wipe out all `input.txt` files from the repo history using [`git filter-repo`](https://pypi.org/project/git-filter-repo/#simple-example-with-comparisons) and a force push; and add a .gitignore record for good measure.
+
+Example: `npx github:connected-web/jumper --repoList repolist-aoc.txt --strategy aoc`
+
 ### Audit
 
 Uses `npm audit fix --force` to update each repos and then create a PR.
